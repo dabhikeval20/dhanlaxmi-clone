@@ -1,80 +1,93 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { Menu, X } from "lucide-react";
-import { useState } from "react";
+import { ChevronDown, Sparkles } from "lucide-react";
+import { useState, useEffect } from "react";
 import { navItems } from "@/lib/content";
 import { ThemeToggle } from "@/components/ThemeToggle";
 
 export default function Navbar() {
-  const pathname = usePathname();
   const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 20);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-slate-200/80 bg-white/90 backdrop-blur-xl dark:border-slate-800 dark:bg-slate-950/90">
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
-        <Link href="/" className="flex items-center gap-3">
-          <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-gradient-to-br from-blue-600 to-cyan-500 text-lg font-semibold text-white shadow-lg shadow-blue-600/20">
-            DF
+    <header 
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        scrolled 
+          ? "bg-white/90 dark:bg-slate-950/90 backdrop-blur-xl border-b border-slate-200/50 dark:border-slate-800/50 py-3.5 shadow-sm" 
+          : "bg-transparent py-5 border-b border-transparent"
+      }`}
+    >
+      <div className="mx-auto flex max-w-7xl items-center justify-between px-5">
+        <a href="#top" className="flex items-center gap-2.5">
+          <div className="h-10 w-10 rounded-xl bg-[var(--gradient-hero)] grid place-items-center shadow-[var(--shadow-glow)]">
+            <Sparkles className="h-5 w-5 text-white" />
           </div>
-          <div>
-            <p className="text-base font-semibold text-slate-900 dark:text-white">Dhanlaxmi</p>
-            <p className="text-sm text-slate-500 dark:text-slate-400">Financial Services</p>
+          <div className="leading-tight">
+            <p className="font-display text-lg font-semibold text-[var(--navy)] dark:text-white">Dhanlaxmi</p>
+            <p className="text-[10px] uppercase tracking-[0.18em] text-muted-foreground">Financial Services</p>
           </div>
-        </Link>
+        </a>
 
         <nav className="hidden items-center gap-8 lg:flex">
-          {navItems.map((item) => {
-            const active = pathname === item.href || (item.href === "/services" && pathname.startsWith("/services"));
-            return (
-              <Link
-                key={item.href}
-                href={item.href}
-                className={`text-sm font-medium transition ${active ? "text-blue-600 dark:text-sky-400" : "text-slate-700 hover:text-blue-600 dark:text-slate-300"}`}
-              >
-                {item.label}
-              </Link>
-            );
-          })}
+          {navItems.map((item) => (
+            <a
+              key={item.href}
+              href={item.href}
+              className="text-sm font-medium text-[var(--navy)]/80 hover:text-[var(--primary)] dark:text-slate-300 dark:hover:text-sky-400 transition-colors relative after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:w-0 after:bg-[var(--gold)] after:transition-all hover:after:w-full"
+            >
+              {item.label}
+            </a>
+          ))}
         </nav>
 
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2">
           <ThemeToggle />
-          <Link
-            href="/contact"
-            className="hidden rounded-full bg-slate-900 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-slate-700 sm:inline-flex dark:bg-white dark:text-slate-950"
+          <a
+            href="#appointment"
+            className="hidden sm:inline-flex btn-shine items-center gap-2 rounded-full bg-[var(--gradient-hero)] px-5 py-2.5 text-sm font-semibold text-white shadow-[var(--shadow-glow)] hover:-translate-y-0.5 transition-transform"
           >
             Book Consultation
-          </Link>
+          </a>
           <button
             type="button"
-            aria-label="Open mobile menu"
-            aria-expanded={open}
+            aria-label="Toggle mobile menu"
             onClick={() => setOpen((value) => !value)}
-            className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-700 lg:hidden dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200"
+            className="lg:hidden p-2 rounded-lg text-[var(--navy)] dark:text-white"
           >
-            {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+            <ChevronDown className={`h-6 w-6 transition-transform ${open ? "rotate-180" : ""}`} />
           </button>
         </div>
       </div>
 
       {open ? (
-        <div className="border-t border-slate-200 bg-white px-4 py-4 lg:hidden dark:border-slate-800 dark:bg-slate-950">
-          <nav className="flex flex-col gap-3">
+        <div className="absolute top-full left-0 right-0 border-b border-slate-200/50 bg-white/95 px-5 py-5 shadow-lg lg:hidden dark:border-slate-800/50 dark:bg-slate-950/95 backdrop-blur-md">
+          <nav className="flex flex-col gap-4">
             {navItems.map((item) => (
-              <Link
+              <a
                 key={item.href}
                 href={item.href}
                 onClick={() => setOpen(false)}
-                className="rounded-2xl px-3 py-2 text-sm font-medium text-slate-700 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800"
+                className="text-sm font-semibold text-[var(--navy)] hover:text-[var(--primary)] dark:text-slate-200 dark:hover:text-sky-400 py-1"
               >
                 {item.label}
-              </Link>
+              </a>
             ))}
-            <Link href="/contact" onClick={() => setOpen(false)} className="mt-2 rounded-full bg-slate-900 px-4 py-2.5 text-center text-sm font-semibold text-white dark:bg-white dark:text-slate-950">
+            <a
+              href="#appointment"
+              onClick={() => setOpen(false)}
+              className="mt-2 rounded-full bg-[var(--gradient-hero)] py-3 text-center text-sm font-semibold text-white shadow-[var(--shadow-glow)]"
+            >
               Book Consultation
-            </Link>
+            </a>
           </nav>
         </div>
       ) : null}

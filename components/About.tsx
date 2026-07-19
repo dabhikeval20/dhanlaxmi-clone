@@ -1,41 +1,95 @@
-import { ArrowRight, BadgeCheck, Handshake, ShieldCheck } from "lucide-react";
-import Link from "next/link";
-import AnimatedSection from "@/components/AnimatedSection";
+"use client";
+
+import { motion } from "framer-motion";
+import { CircleCheck, Handshake, Shield, TrendingUp, Umbrella } from "lucide-react";
+
+const bulletPoints = [
+  "Personalized financial planning",
+  "Long-term client relationships",
+  "Transparent, unbiased advice",
+  "Dedicated relationship support",
+];
+
+const cards = [
+  {
+    title: "Trust",
+    description: "Built on integrity and long-term relationships.",
+    icon: Handshake,
+  },
+  {
+    title: "Integrity",
+    description: "Transparent, unbiased advice, always.",
+    icon: Shield,
+  },
+  {
+    title: "Growth",
+    description: "Strategies that compound over decades.",
+    icon: TrendingUp,
+  },
+  {
+    title: "Security",
+    description: "Protection that safeguards what matters.",
+    icon: Umbrella,
+  },
+];
 
 export default function About() {
   return (
-    <AnimatedSection id="about" className="px-4 py-20 sm:px-6 lg:px-8 lg:py-28">
-      <div className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
-        <div className="rounded-[2rem] border border-slate-200 bg-slate-50 p-8 shadow-sm dark:border-slate-800 dark:bg-slate-900">
-          <p className="text-sm font-semibold uppercase tracking-[0.35em] text-blue-600 dark:text-sky-400">About us</p>
-          <h2 className="mt-4 text-3xl font-semibold tracking-tight text-slate-900 sm:text-4xl dark:text-white">
+    <section id="about" className="py-24 md:py-32 select-none bg-[var(--background)]">
+      <div className="mx-auto max-w-7xl px-5 grid lg:grid-cols-2 gap-16 items-start">
+        {/* Left Column */}
+        <motion.div 
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+        >
+          <span className="inline-block text-xs uppercase tracking-[0.2em] text-[var(--primary)] font-semibold">
+            About us
+          </span>
+          <h2 className="mt-3 text-3xl md:text-5xl font-semibold text-[var(--navy)] dark:text-white leading-tight">
             Building generational wealth, one family at a time.
           </h2>
-          <p className="mt-6 text-lg leading-8 text-slate-600 dark:text-slate-300">
-            We provide transparent, personalized advice to help individuals and business owners grow wealth, protect what matters and make confident long-term decisions.
+          <p className="mt-6 text-muted-foreground leading-relaxed">
+            Dhanlaxmi Financial Services is a boutique advisory firm helping individuals, families, and business owners plan, invest, and protect their financial future. Our mission is simple — give every client clear, honest advice and a plan they can trust.
           </p>
-          <Link href="/about" className="mt-8 inline-flex items-center gap-2 rounded-full bg-blue-600 px-5 py-3 text-sm font-semibold text-white transition hover:bg-blue-700">
-            Learn More
-            <ArrowRight className="h-4 w-4" />
-          </Link>
-        </div>
-        <div className="grid gap-4 sm:grid-cols-2">
-          {[
-            { title: "Integrity", description: "Transparent and unbiased advice, always." },
-            { title: "Growth", description: "Strategies that compound over decades." },
-            { title: "Security", description: "Protection that safeguards what matters." },
-            { title: "Trust", description: "Built on long-term relationships and care." },
-          ].map((item) => (
-            <div key={item.title} className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900">
-              <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-blue-50 text-blue-600 dark:bg-slate-800 dark:text-sky-400">
-                {item.title === "Integrity" ? <ShieldCheck className="h-5 w-5" /> : item.title === "Growth" ? <BadgeCheck className="h-5 w-5" /> : <Handshake className="h-5 w-5" />}
-              </div>
-              <h3 className="mt-4 text-xl font-semibold text-slate-900 dark:text-white">{item.title}</h3>
-              <p className="mt-2 text-sm leading-7 text-slate-600 dark:text-slate-400">{item.description}</p>
-            </div>
-          ))}
+          <ul className="mt-6 space-y-3">
+            {bulletPoints.map((point) => (
+              <li key={point} className="flex items-start gap-3 text-[var(--navy)]/80 dark:text-slate-300">
+                <CircleCheck className="h-5 w-5 text-[var(--primary)] shrink-0 mt-0.5" />
+                <span>{point}</span>
+              </li>
+            ))}
+          </ul>
+        </motion.div>
+
+        {/* Right Column Grid */}
+        <div className="grid grid-cols-2 gap-4">
+          {cards.map((item, index) => {
+            const IconComp = item.icon;
+            return (
+              <motion.div 
+                key={item.title}
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                className="group rounded-3xl bg-white dark:bg-slate-900 p-6 shadow-[var(--shadow-card)] border border-border/60 dark:border-slate-800/60 h-full hover:-translate-y-1 hover:shadow-[var(--shadow-soft)] transition-all"
+              >
+                <div className="h-12 w-12 rounded-2xl bg-[var(--gradient-hero)] grid place-items-center shadow-[var(--shadow-glow)] mb-4 group-hover:scale-110 transition-transform">
+                  <IconComp className="h-5 w-5 text-white" />
+                </div>
+                <div className="font-display text-xl font-semibold text-[var(--navy)] dark:text-white">
+                  {item.title}
+                </div>
+                <p className="mt-1 text-sm text-muted-foreground leading-relaxed">
+                  {item.description}
+                </p>
+              </motion.div>
+            );
+          })}
         </div>
       </div>
-    </AnimatedSection>
+    </section>
   );
 }

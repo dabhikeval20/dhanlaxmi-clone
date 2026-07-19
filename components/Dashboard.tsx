@@ -1,75 +1,139 @@
-import { ArrowUpRight, ShieldCheck, Sparkles, Wallet2 } from "lucide-react";
+"use client";
+
+import { motion } from "framer-motion";
+import { 
+  TrendingUp, 
+  ShieldCheck, 
+  Target, 
+  ArrowUpRight, 
+  AlertCircle, 
+  CheckCircle2 
+} from "lucide-react";
 
 export default function Dashboard() {
   return (
-    <section className="px-4 py-20 sm:px-6 lg:px-8 lg:py-28">
-      <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
-        <div>
-          <p className="text-sm font-semibold uppercase tracking-[0.35em] text-blue-600 dark:text-sky-400">Wealth Dashboard</p>
-          <h2 className="mt-4 text-3xl font-semibold tracking-tight text-slate-900 sm:text-4xl dark:text-white">
-            Clarity that helps families make confident financial decisions.
+    <section className="py-24 md:py-32 bg-[var(--background)] select-none">
+      <div className="mx-auto max-w-7xl px-5 grid lg:grid-cols-[0.95fr_1.05fr] gap-14 items-center">
+        
+        {/* Left Column: Text & Features */}
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+        >
+          <span className="text-xs uppercase tracking-[0.2em] text-[var(--primary)] font-semibold">
+            Clarity &amp; Control
+          </span>
+          <h2 className="mt-3 text-3xl md:text-5xl font-semibold text-[var(--navy)] dark:text-white font-display leading-tight">
+            All your wealth in one single view
           </h2>
-          <p className="mt-6 text-lg leading-8 text-slate-600 dark:text-slate-300">
-            From portfolio tracking to insurance coverage, everything is presented in a simple, transparent view so you always know the next best step.
+          <p className="mt-6 text-muted-foreground leading-relaxed">
+            We consolidate your investments, policies, and goals into a clean dashboard updated in real-time. No more manual spreadsheets or logging into multiple portals.
           </p>
-          <div className="mt-8 space-y-4">
-            {[
-              { title: "Goal-based planning", description: "Align every investment decision to milestones such as education, retirement and wealth creation." },
-              { title: "Insurance protection", description: "Keep your family secure with adequate life and health cover without overpaying." },
-            ].map((item) => (
-              <div key={item.title} className="flex gap-4 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-slate-900">
-                <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-blue-50 text-blue-600 dark:bg-slate-800 dark:text-sky-400">
-                  <Sparkles className="h-5 w-5" />
-                </div>
-                <div>
-                  <h3 className="text-lg font-semibold text-slate-900 dark:text-white">{item.title}</h3>
-                  <p className="mt-1 text-sm leading-7 text-slate-600 dark:text-slate-400">{item.description}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
 
-        <div className="rounded-[2rem] border border-slate-200 bg-gradient-to-br from-slate-900 via-blue-950 to-slate-900 p-8 text-white shadow-2xl dark:border-slate-800">
-          <div className="flex items-center justify-between">
+          <div className="mt-10 space-y-6">
+            
+            {/* Feature 1 */}
+            <div className="flex gap-4">
+              <div className="h-12 w-12 rounded-xl bg-[var(--primary)]/10 grid place-items-center shrink-0">
+                <Target className="h-6 w-6 text-[var(--primary)]" />
+              </div>
+              <div>
+                <h4 className="font-semibold text-[var(--navy)] dark:text-slate-100">
+                  Goal-Based Tracking
+                </h4>
+                <p className="text-sm text-muted-foreground mt-1 leading-relaxed">
+                  Connect mutual funds and savings directly to milestones like retirement or college education and view progress metrics instantly.
+                </p>
+              </div>
+            </div>
+
+            {/* Feature 2 */}
+            <div className="flex gap-4">
+              <div className="h-12 w-12 rounded-xl bg-[var(--primary)]/10 grid place-items-center shrink-0">
+                <ShieldCheck className="h-6 w-6 text-[var(--primary)]" />
+              </div>
+              <div>
+                <h4 className="font-semibold text-[var(--navy)] dark:text-slate-100">
+                  Insurance Health Check
+                </h4>
+                <p className="text-sm text-muted-foreground mt-1 leading-relaxed">
+                  Monitor sum assured, renewal dates, premium schedules, and track active claim requests with dedicated back-office support.
+                </p>
+              </div>
+            </div>
+
+          </div>
+        </motion.div>
+
+        {/* Right Column: Visual Dashboard Mockup */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.1 }}
+          className="rounded-3xl border border-border/60 dark:border-slate-800 bg-white dark:bg-slate-900/60 p-6 md:p-8 shadow-[var(--shadow-soft)] relative overflow-hidden"
+        >
+          {/* Mockup Header */}
+          <div className="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-5">
             <div>
-              <p className="text-sm uppercase tracking-[0.3em] text-slate-400">Portfolio summary</p>
-              <p className="mt-2 text-4xl font-semibold">₹42,80,500</p>
+              <p className="text-[11px] uppercase tracking-wider text-muted-foreground font-medium">Wealth dashboard</p>
+              <h3 className="text-2xl font-display font-semibold text-[var(--navy)] dark:text-white mt-1">₹42,80,500</h3>
             </div>
-            <div className="rounded-full bg-emerald-500/20 px-3 py-2 text-sm font-semibold text-emerald-300">
-              +18.4% growth
+            <span className="inline-flex items-center gap-1 text-xs font-semibold text-emerald-600 bg-emerald-50 dark:bg-emerald-950/30 dark:text-emerald-400 px-2.5 py-1 rounded-full">
+              <TrendingUp className="h-3 w-3" />
+              +18.4%
+            </span>
+          </div>
+
+          {/* Details list */}
+          <div className="mt-6 space-y-4">
+            
+            <div className="flex justify-between items-center text-sm">
+              <span className="text-muted-foreground">Total Invested</span>
+              <span className="font-semibold text-[var(--navy)] dark:text-slate-100">₹32,10,000</span>
+            </div>
+
+            <div className="flex justify-between items-center text-sm border-t border-slate-100 dark:border-slate-800 pt-3">
+              <span className="text-muted-foreground">Estimated Returns</span>
+              <span className="font-semibold text-emerald-600 dark:text-emerald-400">₹10,70,500</span>
+            </div>
+
+            <div className="flex justify-between items-center text-sm border-t border-slate-100 dark:border-slate-800 pt-3">
+              <span className="text-muted-foreground">Active Term Insurance</span>
+              <span className="font-semibold text-[var(--navy)] dark:text-slate-100">₹1,00,00,000</span>
+            </div>
+
+          </div>
+
+          {/* Recommended actions panel */}
+          <div className="mt-8 rounded-2xl bg-amber-50/50 dark:bg-amber-950/10 border border-amber-200/50 p-4">
+            <div className="flex gap-2.5 items-start">
+              <AlertCircle className="h-5 w-5 text-amber-600 dark:text-amber-400 shrink-0 mt-0.5" />
+              <div>
+                <h5 className="text-sm font-semibold text-amber-800 dark:text-amber-300">
+                  Recommended Actions
+                </h5>
+                <ul className="mt-2 space-y-1.5 text-xs text-amber-700/90 dark:text-amber-400/90">
+                  <li className="flex items-center gap-2">
+                    <CheckCircle2 className="h-3.5 w-3.5 text-emerald-500 shrink-0" />
+                    SIP amounts are aligned with retirement goals
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <CheckCircle2 className="h-3.5 w-3.5 text-emerald-500 shrink-0" />
+                    Health insurance coverage should be increased by ₹15 L
+                  </li>
+                </ul>
+              </div>
             </div>
           </div>
 
-          <div className="mt-10 grid gap-4 sm:grid-cols-2">
-            <div className="rounded-2xl border border-white/10 bg-white/10 p-5 backdrop-blur">
-              <div className="flex items-center gap-2 text-sm text-slate-300">
-                <Wallet2 className="h-4 w-4" />
-                Total invested
-              </div>
-              <p className="mt-3 text-2xl font-semibold">₹32,10,000</p>
-            </div>
-            <div className="rounded-2xl border border-white/10 bg-white/10 p-5 backdrop-blur">
-              <div className="flex items-center gap-2 text-sm text-slate-300">
-                <ShieldCheck className="h-4 w-4" />
-                Insurance cover
-              </div>
-              <p className="mt-3 text-2xl font-semibold">₹1 Cr</p>
-            </div>
-          </div>
+          {/* Floating visual detail bubble */}
+          <div className="absolute -bottom-10 -right-10 w-44 h-44 rounded-full bg-[var(--primary)]/5 -z-10" />
 
-          <div className="mt-8 rounded-2xl bg-white/10 p-6 backdrop-blur">
-            <div className="flex items-center gap-2 text-sm font-semibold text-slate-200">
-              <ArrowUpRight className="h-4 w-4 text-emerald-400" />
-              Recommended actions
-            </div>
-            <ul className="mt-5 space-y-3 text-sm text-slate-300">
-              <li>• Review SIP allocation before next quarter.</li>
-              <li>• Increase term cover to match new family commitments.</li>
-              <li>• Rebalance equity exposure after recent market gains.</li>
-            </ul>
-          </div>
-        </div>
+        </motion.div>
+
       </div>
     </section>
   );

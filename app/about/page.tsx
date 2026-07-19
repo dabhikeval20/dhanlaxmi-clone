@@ -1,41 +1,91 @@
-import type { Metadata } from "next";
-import Link from "next/link";
+"use client";
+
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-
-export const metadata: Metadata = {
-  title: "About",
-  description: "Learn how Dhanlaxmi helps families create wealth and protect their future with honest, personalized advice.",
-  alternates: { canonical: "/about" },
-};
+import Stats from "@/components/Stats";
+import About from "@/components/About";
+import Partners from "@/components/Partners";
+import { motion } from "framer-motion";
+import { ArrowRight } from "lucide-react";
 
 export default function AboutPage() {
   return (
     <>
       <Navbar />
-      <main className="px-4 py-20 sm:px-6 lg:px-8 lg:py-28">
-        <div className="mx-auto max-w-6xl rounded-[2rem] border border-slate-200 bg-white p-10 shadow-sm dark:border-slate-800 dark:bg-slate-900">
-          <p className="text-sm font-semibold uppercase tracking-[0.35em] text-blue-600 dark:text-sky-400">About Dhanlaxmi</p>
-          <h1 className="mt-4 text-4xl font-semibold tracking-tight text-slate-900 sm:text-5xl dark:text-white">
-            Building generational wealth with clarity and care.
-          </h1>
-          <p className="mt-6 max-w-3xl text-lg leading-8 text-slate-600 dark:text-slate-300">
-            We combine financial planning, mutual fund solutions, insurance guidance and long-term advisory support to help clients make confident decisions without complexity.
-          </p>
-          <div className="mt-10 grid gap-6 md:grid-cols-2">
-            <div className="rounded-3xl border border-slate-200 bg-slate-50 p-6 dark:border-slate-800 dark:bg-slate-950/70">
-              <h2 className="text-xl font-semibold text-slate-900 dark:text-white">Our approach</h2>
-              <p className="mt-3 text-sm leading-7 text-slate-600 dark:text-slate-400">Every recommendation is tailored to your goals, stage of life and comfort with risk so the plan feels both practical and personal.</p>
-            </div>
-            <div className="rounded-3xl border border-slate-200 bg-slate-50 p-6 dark:border-slate-800 dark:bg-slate-950/70">
-              <h2 className="text-xl font-semibold text-slate-900 dark:text-white">Why clients stay</h2>
-              <p className="mt-3 text-sm leading-7 text-slate-600 dark:text-slate-400">We believe the best guidance is transparent, consistent and available whenever major life decisions arise.</p>
+      <main className="select-none overflow-hidden pt-[70px]">
+        
+        {/* About Page Hero Banner */}
+        <section className="relative py-20 md:py-28 bg-[var(--background)]">
+          {/* Glow lights */}
+          <div className="absolute inset-0 -z-10">
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full bg-[var(--primary)]/10 blur-3xl" />
+          </div>
+
+          <div className="mx-auto max-w-4xl px-5 text-center">
+            <motion.div 
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              className="inline-flex items-center gap-2 rounded-full glass-card px-4 py-1.5 text-xs font-medium text-[var(--navy)] mb-6 dark:text-slate-200"
+            >
+              Who we are
+            </motion.div>
+
+            <motion.h1
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+              className="text-4xl md:text-5xl lg:text-6xl font-semibold text-[var(--navy)] dark:text-white font-display leading-[1.1]"
+            >
+              Building generational wealth with{" "}
+              <span className="bg-[var(--gradient-hero)] bg-clip-text text-transparent">
+                clarity and care
+              </span>
+            </motion.h1>
+
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              className="mt-6 text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed"
+            >
+              We combine robust financial planning, custom mutual fund solutions, comprehensive insurance guidance, and ongoing advisor support to help you make confident decisions without the jargon.
+            </motion.p>
+          </div>
+        </section>
+
+        {/* Stats Strip */}
+        <Stats />
+
+        {/* About section cards and list */}
+        <About />
+
+        {/* Partners Horizontal Scroll */}
+        <Partners />
+
+        {/* Call to action panel */}
+        <section className="py-20 bg-[var(--background)]">
+          <div className="mx-auto max-w-4xl px-5">
+            <div className="rounded-3xl bg-[var(--gradient-hero)] p-10 md:p-14 text-white text-center shadow-[var(--shadow-glow)]">
+              <h2 className="font-display text-3xl md:text-4xl font-semibold">
+                Ready to plan your financial future?
+              </h2>
+              <p className="mt-4 text-white/80 max-w-lg mx-auto leading-relaxed text-sm md:text-base">
+                Our advisors can help you consolidate your holdings, calculate tax liabilities, and optimize cash flows for your specific goals.
+              </p>
+              <div className="mt-8">
+                <a 
+                  href="/contact" 
+                  className="inline-flex items-center gap-2 rounded-full bg-[var(--gold)] text-[var(--gold-foreground)] font-semibold px-7 py-3.5 hover:brightness-105 transition"
+                >
+                  Schedule Consultation
+                  <ArrowRight className="h-4 w-4" />
+                </a>
+              </div>
             </div>
           </div>
-          <Link href="/contact" className="mt-10 inline-flex rounded-full bg-slate-900 px-5 py-3 text-sm font-semibold text-white transition hover:bg-slate-700 dark:bg-white dark:text-slate-950">
-            Book a consultation
-          </Link>
-        </div>
+        </section>
+
       </main>
       <Footer />
     </>

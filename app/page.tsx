@@ -4,6 +4,7 @@ import About from "@/components/About";
 import Blog from "@/components/Blog";
 import Calculator from "@/components/Calculator";
 import Contact from "@/components/Contact";
+import WhyChooseUs from "@/components/WhyChooseUs";
 import Dashboard from "@/components/Dashboard";
 import Footer from "@/components/Footer";
 import Hero from "@/components/Hero";
@@ -32,6 +33,7 @@ export default function HomePage() {
         <Hero />
         <Stats />
         <Dashboard />
+        <WhyChooseUs />
         <About />
         <Services />
         <Process />

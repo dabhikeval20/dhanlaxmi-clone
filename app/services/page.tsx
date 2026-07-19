@@ -1,56 +1,93 @@
-import type { Metadata } from "next";
-import Link from "next/link";
-import Footer from "@/components/Footer";
-import Navbar from "@/components/Navbar";
-import { services } from "@/lib/content";
+"use client";
 
-export const metadata: Metadata = {
-  title: "Services",
-  description: "Explore the full range of financial services offered by Dhanlaxmi, from mutual funds to insurance planning.",
-  alternates: { canonical: "/services" },
-};
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
+import Services from "@/components/Services";
+import Process from "@/components/Process";
+import Testimonials from "@/components/Testimonials";
+import { motion } from "framer-motion";
+import { ArrowRight } from "lucide-react";
 
 export default function ServicesPage() {
   return (
     <>
       <Navbar />
-      <main className="px-4 py-20 sm:px-6 lg:px-8 lg:py-28">
-        <div className="mx-auto max-w-6xl">
-          <div className="max-w-3xl">
-            <p className="text-sm font-semibold uppercase tracking-[0.35em] text-blue-600 dark:text-sky-400">Services</p>
-            <h1 className="mt-4 text-4xl font-semibold tracking-tight text-slate-900 sm:text-5xl dark:text-white">
-              Comprehensive guidance across every stage of wealth building.
-            </h1>
-            <p className="mt-6 text-lg leading-8 text-slate-600 dark:text-slate-300">
-              Whether you need a first SIP plan or a full year-end wealth review, our capabilities span investments, advisory and protection.
-            </p>
+      <main className="select-none overflow-hidden pt-[70px]">
+        
+        {/* Services Page Hero Banner */}
+        <section className="relative py-20 md:py-28 bg-[var(--background)]">
+          {/* Glow lights */}
+          <div className="absolute inset-0 -z-10">
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full bg-[var(--primary)]/10 blur-3xl" />
           </div>
 
-          <div className="mt-12 grid gap-6 md:grid-cols-2">
-            {services.map((service) => (
-              <article key={service.title} className="rounded-[2rem] border border-slate-200 bg-white p-8 shadow-sm dark:border-slate-800 dark:bg-slate-900">
-                <h2 className="text-2xl font-semibold text-slate-900 dark:text-white">{service.title}</h2>
-                <p className="mt-4 text-sm leading-7 text-slate-600 dark:text-slate-400">{service.description}</p>
-                <ul className="mt-6 space-y-3 text-sm text-slate-600 dark:text-slate-400">
-                  {service.features.map((feature) => (
-                    <li key={feature} className="flex items-center gap-2">
-                      <span className="h-2.5 w-2.5 rounded-full bg-blue-600" />
-                      {feature}
-                    </li>
-                  ))}
-                </ul>
-              </article>
-            ))}
-          </div>
+          <div className="mx-auto max-w-4xl px-5 text-center">
+            <motion.div 
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              className="inline-flex items-center gap-2 rounded-full glass-card px-4 py-1.5 text-xs font-medium text-[var(--navy)] mb-6 dark:text-slate-200"
+            >
+              Our offerings
+            </motion.div>
 
-          <div className="mt-12 rounded-[2rem] border border-slate-200 bg-slate-50 p-8 dark:border-slate-800 dark:bg-slate-950/60">
-            <h2 className="text-2xl font-semibold text-slate-900 dark:text-white">Ready to move forward?</h2>
-            <p className="mt-3 text-sm leading-7 text-slate-600 dark:text-slate-400">Our advisors can help you compare options, understand fees and structure a plan that fits your current life stage.</p>
-            <Link href="/contact" className="mt-6 inline-flex rounded-full bg-slate-900 px-5 py-3 text-sm font-semibold text-white transition hover:bg-slate-700 dark:bg-white dark:text-slate-950">
-              Speak with an advisor
-            </Link>
+            <motion.h1
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+              className="text-4xl md:text-5xl lg:text-6xl font-semibold text-[var(--navy)] dark:text-white font-display leading-[1.1]"
+            >
+              Comprehensive guidance across every stage of{" "}
+              <span className="bg-[var(--gradient-hero)] bg-clip-text text-transparent">
+                wealth building
+              </span>
+            </motion.h1>
+
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              className="mt-6 text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed"
+            >
+              Whether you need a first SIP plan or a full year-end wealth review, our capabilities span investments, advisory, and protection.
+            </motion.p>
           </div>
-        </div>
+        </section>
+
+        {/* Services Grid (cards and badges) */}
+        <Services />
+
+        {/* Timeline zigzag Process */}
+        <Process />
+
+        {/* Autoplay Testimonials client slider */}
+        <Testimonials />
+
+        {/* Consultation Callout */}
+        <section className="py-20 bg-[var(--background)]">
+          <div className="mx-auto max-w-4xl px-5">
+            <div className="rounded-3xl bg-[var(--navy)] p-10 md:p-14 text-white text-center shadow-[var(--shadow-glow)] relative overflow-hidden">
+              <div className="absolute inset-0 -z-10 bg-[var(--gradient-hero)] opacity-90" />
+              
+              <h2 className="font-display text-3xl md:text-4xl font-semibold text-white">
+                Need help comparing options?
+              </h2>
+              <p className="mt-4 text-white/80 max-w-md mx-auto leading-relaxed text-sm">
+                Our advisors can help you compare premium rates, project growth paths, and structure tax-advantaged portfolio allocations.
+              </p>
+              <div className="mt-8">
+                <a 
+                  href="/contact" 
+                  className="inline-flex items-center gap-2 rounded-full bg-[var(--gold)] text-[var(--gold-foreground)] font-semibold px-7 py-3.5 hover:brightness-105 transition"
+                >
+                  Speak with an advisor
+                  <ArrowRight className="h-4 w-4" />
+                </a>
+              </div>
+            </div>
+          </div>
+        </section>
+
       </main>
       <Footer />
     </>

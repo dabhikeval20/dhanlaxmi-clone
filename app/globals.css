@@ -1,20 +1,50 @@
 @import "tailwindcss";
 
 :root {
-  --background: #f8fbff;
-  --foreground: #0f172a;
+  --background: oklch(100% 0 0);
+  --foreground: oklch(18% 0.05 265);
+  --primary: oklch(42% 0.19 265);
+  --primary-foreground: oklch(99% 0.005 250);
+  --accent: oklch(95% 0.03 265);
+  --accent-foreground: oklch(22% 0.08 265);
+  --border: oklch(92% 0.015 255);
+  --navy: oklch(22% 0.08 265);
+  --navy-foreground: oklch(99% 0.005 250);
+  --gold: oklch(78% 0.14 82);
+  --gold-foreground: oklch(20% 0.05 265);
+  
+  --gradient-hero: linear-gradient(135deg, oklch(22% 0.08 265) 0%, oklch(42% 0.19 265) 100%);
+  --gradient-gold: linear-gradient(135deg, oklch(82% 0.13 82) 0%, oklch(72% 0.15 70) 100%);
+  
+  --shadow-card: 0 4px 20px -4px oklch(22% 0.08 265 / 8%);
+  --shadow-glow: 0 20px 60px -20px oklch(42% 0.19 265 / 35%);
+  --shadow-soft: 0 10px 40px -12px oklch(22% 0.08 265 / 15%);
 }
 
 html.dark {
-  --background: #020617;
-  --foreground: #e2e8f0;
+  --background: oklch(12.9% 0.042 264.695);
+  --foreground: oklch(98.4% 0.003 247.858);
+  --primary: oklch(92.9% 0.013 255.508);
+  --primary-foreground: oklch(20.8% 0.042 265.755);
+  --accent: oklch(27.9% 0.041 260.031);
+  --accent-foreground: oklch(98.4% 0.003 247.858);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-border: var(--border);
+  --color-navy: var(--navy);
+  --color-navy-foreground: var(--navy-foreground);
+  --color-gold: var(--gold);
+  --color-gold-foreground: var(--gold-foreground);
+  
+  --font-sans: "Inter", system-ui, sans-serif;
+  --font-display: "Fraunces", Georgia, serif;
 }
 
 * {
@@ -29,14 +59,16 @@ body {
   margin: 0;
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: "Inter", system-ui, sans-serif;
   line-height: 1.5;
+  transition: background-color 200ms ease, color 200ms ease;
 }
 
 ::selection {
   background: rgba(59, 130, 246, 0.25);
 }
 
+/* Animations */
 @keyframes marquee {
   from {
     transform: translateX(0);
@@ -46,6 +78,50 @@ body {
   }
 }
 
-.marquee {
-  animation: marquee 24s linear infinite;
+@keyframes ticker {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-ticker {
+  animation: ticker 40s linear infinite;
+}
+
+.animate-marquee {
+  animation: marquee 40s linear infinite;
+}
+
+/* Custom premium styles */
+.glass-card {
+  backdrop-filter: blur(20px) saturate(140%);
+  -webkit-backdrop-filter: blur(20px) saturate(140%);
+  background: oklch(100% 0 0 / 70%);
+  border: 1px solid oklch(100% 0 0 / 40%);
+}
+
+html.dark .glass-card {
+  background: oklch(12.9% 0.042 264.695 / 70%);
+  border: 1px solid oklch(100% 0 0 / 10%);
+}
+
+.btn-shine {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-shine::after {
+  content: "";
+  background: linear-gradient(120deg, transparent 30%, rgba(255, 255, 255, 0.35) 50%, transparent 70%);
+  transition: transform 0.7s;
+  position: absolute;
+  inset: 0;
+  transform: translateX(-100%);
+}
+
+.btn-shine:hover::after {
+  transform: translateX(100%);
 }

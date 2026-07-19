@@ -1,14 +1,28 @@
+"use client";
+
+import { motion } from "framer-motion";
 import { stats } from "@/lib/content";
 
 export default function Stats() {
   return (
-    <section className="border-y border-slate-200 bg-slate-50/80 px-4 py-16 sm:px-6 lg:px-8 dark:border-slate-800 dark:bg-slate-950/60">
-      <div className="mx-auto grid max-w-7xl gap-6 md:grid-cols-2 xl:grid-cols-4">
-        {stats.map((stat) => (
-          <div key={stat.label} className="rounded-3xl border border-slate-200 bg-white p-8 text-center shadow-sm dark:border-slate-800 dark:bg-slate-900">
-            <p className="text-4xl font-semibold tracking-tight text-slate-900 dark:text-white">{stat.value}</p>
-            <p className="mt-3 text-base text-slate-600 dark:text-slate-400">{stat.label}</p>
-          </div>
+    <section className="py-16 bg-[var(--navy)] text-white select-none">
+      <div className="mx-auto max-w-7xl px-5 grid grid-cols-2 md:grid-cols-4 gap-8">
+        {stats.map((stat, index) => (
+          <motion.div 
+            key={stat.label}
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: index * 0.1 }}
+            className="text-center"
+          >
+            <p className="font-display text-4xl md:text-5xl font-semibold text-[var(--gold)]">
+              {stat.value}
+            </p>
+            <p className="text-sm text-white/70 mt-1">
+              {stat.label}
+            </p>
+          </motion.div>
         ))}
       </div>
     </section>

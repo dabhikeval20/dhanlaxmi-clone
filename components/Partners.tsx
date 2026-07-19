@@ -1,20 +1,28 @@
+"use client";
+
 import { partners } from "@/lib/content";
 
 export default function Partners() {
   return (
-    <section className="px-4 py-20 sm:px-6 lg:px-8 lg:py-28">
-      <div className="mx-auto max-w-7xl">
-        <div className="max-w-3xl text-center mx-auto">
-          <p className="text-sm font-semibold uppercase tracking-[0.35em] text-blue-600 dark:text-sky-400">Featured partners</p>
-          <h2 className="mt-4 text-3xl font-semibold tracking-tight text-slate-900 sm:text-4xl dark:text-white">
-            Backed by India’s most trusted institutions.
-          </h2>
-        </div>
+    <section className="py-20 border-y border-border/60 bg-white dark:bg-slate-900 overflow-hidden select-none">
+      <div className="mx-auto max-w-7xl px-5 text-center mb-10">
+        <span className="text-xs uppercase tracking-[0.2em] text-[var(--primary)] font-semibold">
+          Featured partners
+        </span>
+        <h3 className="mt-3 font-display text-2xl md:text-3xl font-semibold text-[var(--navy)] dark:text-white">
+          Backed by India&apos;s most trusted institutions
+        </h3>
+      </div>
 
-        <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
-          {partners.map((partner) => (
-            <div key={partner} className="rounded-2xl border border-slate-200 bg-white p-6 text-center shadow-sm transition hover:-translate-y-1 hover:shadow-md dark:border-slate-800 dark:bg-slate-900">
-              <p className="text-lg font-semibold text-slate-700 dark:text-slate-200">{partner}</p>
+      <div className="relative">
+        <div className="flex gap-4 whitespace-nowrap animate-marquee">
+          {/* We repeat the array three times to guarantee a seamless animation loop */}
+          {[...partners, ...partners, ...partners].map((partner, index) => (
+            <div 
+              key={`${partner}-${index}`} 
+              className="shrink-0 rounded-xl border border-border/60 bg-[var(--accent)]/10 px-6 py-4 text-[var(--navy)]/70 dark:text-slate-300 font-semibold text-sm hover:-translate-y-0.5 hover:shadow-sm transition"
+            >
+              {partner}
             </div>
           ))}
         </div>
